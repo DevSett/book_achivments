@@ -1,0 +1,25 @@
+In css in this case, you need to specify our overridden class:
+
+    .tree-cell {
+        -fx-skin: "CustomTreeCellSkin";
+        -fx-background-color: -fx-control-inner-background;
+        -fx-padding: 0px;
+        -fx-text-fill: -fx-text-inner-color;
+        -fx-indent: 0px;
+    }
+
+    .tree-cell .label {
+        -fx-padding: 0.0em 0.0em 0.0em 0.0em;
+    }
+
+    .tree-cell .tree-disclosure-node {
+        -fx-padding: 0px;
+        -fx-background-color: transparent;
+    }
+
+    .tree-cell .tree-disclosure-node .arrow {
+        -fx-background-color: -fx-mark-color;
+        -fx-padding: 0.0em;
+    }
+
+Sorry for my English. =)
