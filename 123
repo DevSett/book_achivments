@@ -1,0 +1,18 @@
+In this case, the JavaFX developers made the standard length of 18 and did not provide an opportunity to change it. Here is their comment:
+     
+     /*
+     * This is rather hacky - but it is a quick workaround to resolve the
+     * issue that we don't know maximum width of a disclosure node for a given
+     * TreeView. If we don't know the maximum width, we have no way to ensure
+     * consistent indentation for a given TreeView.
+     *
+     * To work around this, we create a single WeakHashMap to store a max
+     * disclosureNode width per TreeView. We use WeakHashMap to help prevent
+     * any memory leaks.
+     *
+     * RT-19656 identifies a related issue, which is that we may not provide
+     * indentation to any TreeItems because we have not yet encountered a cell
+     * which has a disclosureNode. Once we scroll and encounter one, indentation
+     * happens in a displeasing way.
+     */
+
