@@ -1,0 +1,50 @@
+Full class:
+
+    public class CustomTreeCellSkin<T> extends TreeCellSkin<T> {
+    	public CustomTreeCellSkin(TreeCell control) {
+    		super(control);
+    	}
+    
+    	private boolean disclosureNodeDirty = true;
+    	
+    	
+    	@Override
+    	protected void layoutChildren(double x, double y, double w, double h) {
+    		try {
+    
+    			TreeView<T> tree = getSkinnable().getTreeView();
+    			if (tree == null) return;
+    
+    			if (disclosureNodeDirty) {
+    				Method method =TreeCellSkin.class.getDeclaredMethod("updateDisclosureNode");
+    				method.setAccessible(true);
+    				method.invoke(this);
+    				isFirst=false;
+    			}
+    
+    			Node disclosureNode = getSkinnable().getDisclosureNode();
+    
+    			TreeItem<?> treeItem;
+    
+    			Field field = TreeCellSkin.class.getDeclaredField("treeItem");
+    			field.setAccessible(true);
+    			treeItem = (TreeItem<?>) field.get(this);
+    
+    			int level = tree.getTreeItemLevel(treeItem);
+    			if (!tree.isShowRoot()) level--;
+    			double leftMargin = getIndent() * level;
+    
+    			x += leftMargin;
+    
+    			// position the disclosure node so that it is at the proper indent
+    			boolean disclosureVisible = disclosureNode != null && treeItem != null && !treeItem.isLeaf();
+    			field = TreeCellSkin.class.getDeclaredField("maxDisclosureWidthMap");
+    			field.setAccessible(true);
+    			Map<TreeView<?>, Double> maxDisclosureWidthMap = (Map<TreeView<?>, Double>) field.get(this);
+    			final double defaultDisclosureWidth =  0;   // RT-19656: default width of default disclosure node
+    			double disclosureWidth = defaultDisclosureWidth;
+    
+    			if (disclosureVisible) {
+    				if (disclosureNode == null || disclosureNode.getScene() == null) {
+    					updateChildren();
+    				}
