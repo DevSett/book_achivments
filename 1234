@@ -1,0 +1,7 @@
+But if it's really necessary, then we override the TreeCellSkin class and the layoutChildren method using reflection. But this is not safe:
+
+      final double defaultDisclosureWidth = maxDisclosureWidthMap.containsKey(tree) ?
+            maxDisclosureWidthMap.get(tree) : 18;   // RT-19656: default width of default disclosure node 
+on
+
+      final double defaultDisclosureWidth =  0;   
